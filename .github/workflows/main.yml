@@ -33,3 +33,11 @@ jobs:
       - name: Run a multi-line script
         run: |
           sudo apt-get install php8.0-intl
+          curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+          mkdir -p /var/www/dashboard
+          cd /var/www/dashboard
+          git clone https://github.com/ControlPanel-gg/dashboard.git ./
+          chmod -R 755 storage/* bootstrap/cache/
+          cp .env.example .env
+          php artisan key:generate --force
+          php artisan storage:link
